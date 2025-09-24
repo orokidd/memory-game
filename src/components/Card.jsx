@@ -18,7 +18,7 @@ export function Card({ cards, onCardClick }) {
                 background: card.clicked ? "#a3a3a3ff" : "white",
               }}
             >
-              {card.img}
+                <img src={card.img} alt="card" style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "6px" }} />
             </div>
           ))}
         </div>

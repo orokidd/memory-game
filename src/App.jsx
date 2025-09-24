@@ -3,53 +3,60 @@ import { Card } from "./components/Card";
 
 // Utility to shuffle array
 function shuffle(array) {
-  return [...array].sort(() => Math.random() - 0.5);
+  const result = [...array]; // copy to avoid mutating original
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]]; // swap
+  }
+  return result;
 }
 
-export default function CardGame() {
-  const initialCards = [
-    { id: 1, img: "🐱", clicked: false },
-    { id: 2, img: "🐶", clicked: false },
-    { id: 3, img: "🐰", clicked: false },
-    { id: 4, img: "🐸", clicked: false },
-    { id: 5, img: "🐵", clicked: false },
-    { id: 6, img: "🐔", clicked: false },
-    { id: 7, img: "🐧", clicked: false },
-  ];
 
-  const [cards, setCards] = useState(initialCards);
+export default function App() {
+  const [cards, setCards] = useState([]);
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
 
   useEffect(() => {
-    if (score === cards.length && cards.length > 0) {
+    fetch("https://api.giphy.com/v1/gifs/search?api_key=fAikYqHyFIWlkJ9cVYRlpMabsqx32PIJ&q=cats&limit=8&offset=0&rating=g&lang=en", { mode: "cors" })
+      .then(res => res.json())
+      .then(data =>
+        setCards(
+          data.data.map(item => ({
+            id: item.id,
+            img: item.images.fixed_height.url,
+            clicked: false
+          }))
+        )
+      );
+  }, []);
+
+  useEffect(() => {
+    if (!cards.length) return; // guard if cards not loaded yet
+    if (score === cards.length) {
       alert("You win!");
       setScore(0);
-      setCards(
-        shuffle(initialCards.map((card) => ({ ...card, clicked: false })))
-      );
+      setCards(shuffle(cards.map(card => ({ ...card, clicked: false }))));
     }
   }, [score, cards]);
 
   function handleClick(id) {
-    setCards((prevCards) => {
-      const card = prevCards.find((card) => card.id === id);
+    setCards(prevCards => {
+      const card = prevCards.find(card => card.id === id);
 
       if (card.clicked) {
         // Reset game if already clicked
         setScore(0);
-        return shuffle(
-          initialCards.map((card) => ({ ...card, clicked: false }))
-        );
+        return shuffle(prevCards.map(card => ({ ...card, clicked: false })));
       } else {
         // Mark card as clicked
-        const newCards = prevCards.map((card) =>
+        const newCards = prevCards.map(card =>
           card.id === id ? { ...card, clicked: true } : card
         );
         // Increment score and update best score if needed
-        setScore((prevScore) => {
+        setScore(prevScore => {
           const newScore = prevScore + 1;
-          setBestScore((prevBest) => Math.max(prevBest, newScore));
+          setBestScore(prevBest => Math.max(prevBest, newScore));
           return newScore;
         });
         return shuffle(newCards);
