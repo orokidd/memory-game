@@ -6,6 +6,7 @@ export default function App() {
   const [cards, setCards] = useState([]);
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
+  const [gameOver, setGameOver] = useState(false);
 
   useEffect(() => {
     fetch("https://api.giphy.com/v1/gifs/search?api_key=fAikYqHyFIWlkJ9cVYRlpMabsqx32PIJ&q=cats&limit=8&offset=0&rating=g&lang=en", { mode: "cors" })
@@ -31,16 +32,15 @@ export default function App() {
   }, [score, cards]);
 
   function handleClick(id) {
-    setCards(prevCards => {
-      const card = prevCards.find(card => card.id === id);
+      const selectedCard = cards.find(card => card.id === id);
 
-      if (card.clicked) {
+      if (selectedCard.clicked) {
         // Reset game if already clicked
-        setScore(0);
-        return shuffle(prevCards.map(card => ({ ...card, clicked: false })));
+        resetScore();
+        resetCards();
       } else {
-        // Mark card as clicked
-        const newCards = prevCards.map(card =>
+        // Mark selected card as clicked
+        const newCards = cards.map(card =>
           card.id === id ? { ...card, clicked: true } : card
         );
         // Increment score and update best score if needed
@@ -49,9 +49,16 @@ export default function App() {
           setBestScore(prevBest => Math.max(prevBest, newScore));
           return newScore;
         });
-        return shuffle(newCards);
+        setCards(shuffle(newCards));
       }
-    });
+  }
+
+  function resetCards() {
+    setCards(prevCards => shuffle(prevCards.map(card => ({ ...card, clicked: false }))));
+  }
+
+  function resetScore() {
+    setScore(0);
   }
 
   return (
