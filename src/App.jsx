@@ -31,6 +31,10 @@ export default function App() {
     }
   }, [score, cards]);
 
+  useEffect(() => {
+    setBestScore(prevBest => Math.max(prevBest, score));
+  }, [score]);
+
   function handleClick(id) {
       const selectedCard = cards.find(card => card.id === id);
 
@@ -46,7 +50,6 @@ export default function App() {
         // Increment score and update best score if needed
         setScore(prevScore => {
           const newScore = prevScore + 1;
-          setBestScore(prevBest => Math.max(prevBest, newScore));
           return newScore;
         });
         setCards(shuffle(newCards));
