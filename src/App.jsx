@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // Utility to shuffle array
 function shuffle(array) {
@@ -20,7 +20,16 @@ export default function CardGame() {
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
 
+  useEffect(() => {
+  if (score === cards.length && cards.length > 0) {
+    alert("You win!");
+    setScore(0);
+    setCards(shuffle(initialCards.map((card) => ({ ...card, clicked: false }))));
+  }
+}, [score, cards]);
+
   function handleClick(id) {
+    
     setCards((prevCards) => {
       const card = prevCards.find((card) => card.id === id);
 
@@ -40,7 +49,7 @@ export default function CardGame() {
         });
         return shuffle(newCards);
       }
-    });
+    })
   }
 
   return (
