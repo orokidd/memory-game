@@ -20,6 +20,24 @@ body {
   height: 100vh;
 }
 
+.start-button {
+  padding: 8px 20px;
+  font-size: 1rem;
+  font-family: "mynerve", sans-serif;
+  cursor: pointer;
+  border: 2px solid rgb(58, 58, 58);
+  border-radius: 40px;
+  background-color: transparent;
+  color: rgb(43, 43, 43);
+  transition: all 0.3s;
+  transform: translateZ(0)
+}
+
+.start-button:hover {
+  transform: rotate(-4deg);
+  box-shadow: 0 6px 4px rgba(0, 0, 0, 0.2);
+}
+
 .app-wrapper {
   display: flex;
   flex-direction: column;

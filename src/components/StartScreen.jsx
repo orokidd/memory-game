@@ -3,7 +3,7 @@ export function StartScreen({ onStart }) {
     <div className="start-screen">
       <h1 className="game-title">Welcome to the Cat Memory Game</h1>
       <p>Don't click on the same cat twice!</p>
-      <button onClick={onStart}>Start Game</button>
+      <button className="start-button" onClick={onStart}>Start Game</button>
     </div>
   );
 }
