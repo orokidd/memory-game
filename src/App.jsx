@@ -68,7 +68,7 @@ export default function App() {
     <StartScreen onStart={() => setStartScreen(false)} /> 
   ) : (
     <div className="app-wrapper">
-      <h1 className="game-title">Card Memory Game</h1>
+      <h1 className="game-title">Cat Memory Game</h1>
       <p className="scoreboard">Score: {score} | Best: {bestScore}</p>
       <Card cards={cards} onCardClick={handleClick} />
     </div> 
