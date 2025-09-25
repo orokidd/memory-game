@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Card } from "./components/Card";
 import { shuffle } from "./util/shuffle";
+import './App.css';
 
 export default function App() {
   const [cards, setCards] = useState([]);
@@ -9,7 +10,7 @@ export default function App() {
   const [gameOver, setGameOver] = useState(false);
 
   useEffect(() => {
-    fetch("https://api.giphy.com/v1/gifs/search?api_key=fAikYqHyFIWlkJ9cVYRlpMabsqx32PIJ&q=cats&limit=8&offset=0&rating=g&lang=en", { mode: "cors" })
+    fetch("https://api.giphy.com/v1/gifs/search?api_key=fAikYqHyFIWlkJ9cVYRlpMabsqx32PIJ&q=cats&limit=9&offset=0&rating=g&lang=en", { mode: "cors" })
       .then(res => res.json())
       .then(data =>
         setCards(
@@ -48,10 +49,7 @@ export default function App() {
           card.id === id ? { ...card, clicked: true } : card
         );
         // Increment score and update best score if needed
-        setScore(prevScore => {
-          const newScore = prevScore + 1;
-          return newScore;
-        });
+        setScore(prevScore => prevScore + 1)
         setCards(shuffle(newCards));
       }
   }
