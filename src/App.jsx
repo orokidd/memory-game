@@ -63,11 +63,9 @@ export default function App() {
   }
 
   return (
-    <div style={{ textAlign: "center" }}>
-      <h1>Card Memory Game</h1>
-      <p>
-        Score: {score} | Best: {bestScore}
-      </p>
+    <div className="app-wrapper">
+      <h1 className="game-title">Card Memory Game</h1>
+      <p className="scoreboard">Score: {score} | Best: {bestScore}</p>
       <Card cards={cards} onCardClick={handleClick} />
     </div>
   );
