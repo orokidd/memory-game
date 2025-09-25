@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import { Card } from "./components/Card";
 import { shuffle } from "./util/shuffle";
+import { StartScreen } from "./components/StartScreen";
 import './App.css';
 
 export default function App() {
   const [cards, setCards] = useState([]);
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
-  const [gameOver, setGameOver] = useState(false);
+  const [startScreen, setStartScreen] = useState(true);
 
   useEffect(() => {
     fetch("https://api.giphy.com/v1/gifs/search?api_key=fAikYqHyFIWlkJ9cVYRlpMabsqx32PIJ&q=cats&limit=9&offset=0&rating=g&lang=en", { mode: "cors" })
@@ -63,10 +64,14 @@ export default function App() {
   }
 
   return (
+    startScreen ? ( 
+    <StartScreen onStart={() => setStartScreen(false)} /> 
+  ) : (
     <div className="app-wrapper">
       <h1 className="game-title">Card Memory Game</h1>
       <p className="scoreboard">Score: {score} | Best: {bestScore}</p>
       <Card cards={cards} onCardClick={handleClick} />
-    </div>
+    </div> 
+    )
   );
 }
