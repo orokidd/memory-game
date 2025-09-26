@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Card } from "./components/Card";
 import { shuffle } from "./util/shuffle";
 import { StartScreen } from "./components/StartScreen";
+import { Options } from "./components/Options";
 import './App.css';
 
 export default function App() {
@@ -48,11 +49,9 @@ export default function App() {
         resetCards();
       } else {
         // Mark selected card as clicked
-        const newCards = cards.map(card =>
-          card.id === id ? { ...card, clicked: true } : card
-        );
+        const newCards = cards.map(card => card.id === id ? { ...card, clicked: true } : card);
         // Increment score and update best score if needed
-        setScore(prevScore => prevScore + 1)
+        setScore(prevScore => prevScore + 1);
         setCards(shuffle(newCards));
       }
   }
@@ -80,7 +79,8 @@ export default function App() {
       <h1 className="game-title">Cat Memory Game</h1>
       <p className="scoreboard">Score: {score} | Best: {bestScore}</p>
       <Card cards={cards} difficulty={difficulty} onCardClick={handleClick} />
+      <Options resetGame={() => {setStartScreen(true)}} />
     </div> 
     )
-  );
+  )
 }
