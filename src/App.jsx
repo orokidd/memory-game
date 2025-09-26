@@ -79,7 +79,7 @@ export default function App() {
     <div className="app-wrapper">
       <h1 className="game-title">Cat Memory Game</h1>
       <p className="scoreboard">Score: {score} | Best: {bestScore}</p>
-      <Card cards={cards} onCardClick={handleClick} />
+      <Card cards={cards} difficulty={difficulty} onCardClick={handleClick} />
     </div> 
     )
   );

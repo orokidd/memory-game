@@ -20,6 +20,12 @@ body {
   height: 100vh;
 }
 
+.difficulty-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+}
+
 .start-button {
   padding: 8px 20px;
   font-size: 1rem;
