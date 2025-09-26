@@ -9,9 +9,11 @@ export default function App() {
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
   const [startScreen, setStartScreen] = useState(true);
+  const [difficulty, setDifficulty] = useState(null);
 
   useEffect(() => {
-    fetch("https://api.giphy.com/v1/gifs/search?api_key=fAikYqHyFIWlkJ9cVYRlpMabsqx32PIJ&q=cats&limit=9&offset=0&rating=g&lang=en", { mode: "cors" })
+    if (!difficulty) return; // guard clause
+    fetch(`https://api.giphy.com/v1/gifs/search?api_key=fAikYqHyFIWlkJ9cVYRlpMabsqx32PIJ&q=cats&limit=${difficulty === 'easy' ? 6 : difficulty === 'medium' ? 9 : 12}&offset=0&rating=g&lang=en`, { mode: "cors" })
       .then(res => res.json())
       .then(data =>
         setCards(
@@ -22,16 +24,16 @@ export default function App() {
           }))
         )
       );
-  }, []);
+  }, [difficulty]);
 
-  useEffect(() => {
-    if (!cards.length) return; // guard if cards not loaded yet
-    if (score === cards.length) {
-      alert("You win!");
-      setScore(0);
-      setCards(shuffle(cards.map(card => ({ ...card, clicked: false }))));
-    }
-  }, [score, cards]);
+  // useEffect(() => {
+  //   if (!cards.length) return; // guard if cards not loaded yet
+  //   if (score === cards.length) {
+  //     alert("You win!");
+  //     setScore(0);
+  //     setCards(shuffle(cards.map(card => ({ ...card, clicked: false }))));
+  //   }
+  // }, [score, cards]);
 
   useEffect(() => {
     setBestScore(prevBest => Math.max(prevBest, score));
@@ -63,9 +65,16 @@ export default function App() {
     setScore(0);
   }
 
+  function startGame(selectedDifficulty) {
+    setDifficulty(selectedDifficulty);
+    setStartScreen(false);
+    setScore(0);
+    setBestScore(0);
+  }
+
   return (
     startScreen ? ( 
-    <StartScreen onStart={() => setStartScreen(false)} /> 
+    <StartScreen onStart={startGame} /> 
   ) : (
     <div className="app-wrapper">
       <h1 className="game-title">Cat Memory Game</h1>
