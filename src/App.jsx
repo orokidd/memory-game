@@ -11,6 +11,7 @@ export default function App() {
   const [bestScore, setBestScore] = useState(0);
   const [startScreen, setStartScreen] = useState(true);
   const [difficulty, setDifficulty] = useState(null);
+  const [gameOver, setGameOver] = useState(false);
 
   useEffect(() => {
     if (!difficulty) return; // guard clause
@@ -45,8 +46,7 @@ export default function App() {
 
       if (selectedCard.clicked) {
         // Reset game if already clicked
-        resetScore();
-        resetCards();
+        setGameOver(true);
       } else {
         // Mark selected card as clicked
         const newCards = cards.map(card => card.id === id ? { ...card, clicked: true } : card);
@@ -64,6 +64,12 @@ export default function App() {
     setScore(0);
   }
 
+  function restartGame() {
+    resetScore();
+    resetCards();
+    setGameOver(false);
+  }
+
   function startGame(selectedDifficulty) {
     setDifficulty(selectedDifficulty);
     setStartScreen(false);
@@ -75,12 +81,24 @@ export default function App() {
     startScreen ? ( 
     <StartScreen onStart={startGame} /> 
   ) : (
-    <div className="app-wrapper">
-      <h1 className="game-title">Cat Memory Game</h1>
-      <p className="scoreboard">Score: {score} | Best: {bestScore}</p>
-      <Card cards={cards} difficulty={difficulty} onCardClick={handleClick} />
-      <Options resetGame={() => {setStartScreen(true)}} />
-    </div> 
+     <>
+      <div className="app-wrapper">
+        <h1 className="game-title">Cat Memory Game</h1>
+        <p className="scoreboard">Score: {score} | Best: {bestScore}</p>
+        <Card cards={cards} difficulty={difficulty} onCardClick={handleClick} />
+        <Options resetGame={() => setStartScreen(true)} />
+      </div>
+
+      {gameOver && (
+        <div className="game-over-overlay">
+          <div className="game-over-box">
+            <h2>Game Over</h2>
+            <p>Your best score was: {bestScore}</p>
+            <button onClick={restartGame}>Restart</button>
+          </div>
+        </div>
+      )}
+    </>
     )
   )
 }
