@@ -3,6 +3,7 @@ import { Card } from "./components/Card";
 import { shuffle } from "./util/shuffle";
 import { StartScreen } from "./components/StartScreen";
 import { Options } from "./components/Options";
+import { GameOver } from "./components/GameOver";
 import './App.css';
 
 export default function App() {
@@ -70,16 +71,17 @@ export default function App() {
     setGameOver(false);
   }
 
-  function startGame(selectedDifficulty) {
+  function newGame(selectedDifficulty) {
     setDifficulty(selectedDifficulty);
     setStartScreen(false);
     setScore(0);
     setBestScore(0);
+    setGameOver(false);
   }
 
   return (
     startScreen ? ( 
-    <StartScreen onStart={startGame} /> 
+    <StartScreen onStart={newGame} /> 
   ) : (
      <>
       <div className="app-wrapper">
@@ -90,13 +92,7 @@ export default function App() {
       </div>
 
       {gameOver && (
-        <div className="game-over-overlay">
-          <div className="game-over-box">
-            <h2>Game Over</h2>
-            <p>Your best score was: {bestScore}</p>
-            <button onClick={restartGame}>Restart</button>
-          </div>
-        </div>
+        <GameOver bestScore={bestScore} onRestart={restartGame} />
       )}
     </>
     )
