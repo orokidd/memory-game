@@ -62,12 +62,27 @@ body {
 
 .card-container {
   display: grid;
-  grid-template-columns: repeat(3, minmax(80px, 1fr));
-  grid-template-rows: repeat(3, minmax(80px, 1fr));
+  grid-template-columns: repeat(3, 160px);
+  grid-template-rows: repeat(3, 160px);
   gap: 60px;
   padding: 20px;
   justify-content: center;
   max-width: 600px;
+}
+
+.card-container.easy {
+  grid-template-columns: repeat(3, 200px);
+  grid-template-rows: repeat(2, 200px);
+}
+
+.card-container.medium {
+  grid-template-columns: repeat(3, 160px);
+  grid-template-rows: repeat(3, 160px);
+}
+
+.card-container.hard {
+  grid-template-columns: repeat(4, 160px);
+  grid-template-rows: repeat(3, 160px);
 }
 
 .card {
