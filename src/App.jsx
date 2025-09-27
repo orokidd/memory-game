@@ -15,8 +15,7 @@ export default function App() {
   const [gameOver, setGameOver] = useState(false);
 
   useEffect(() => {
-    if (!difficulty) return; // guard clause
-    fetch(`https://api.giphy.com/v1/gifs/search?api_key=fAikYqHyFIWlkJ9cVYRlpMabsqx32PIJ&q=cats&limit=${difficulty === 'easy' ? 6 : difficulty === 'medium' ? 9 : 12}&offset=0&rating=g&lang=en`, { mode: "cors" })
+    fetch(`https://api.giphy.com/v1/gifs/search?api_key=fAikYqHyFIWlkJ9cVYRlpMabsqx32PIJ&q=cats&limit=12&offset=0&rating=g&lang=en`, { mode: "cors" })
       .then(res => res.json())
       .then(data =>
         setCards(
@@ -27,7 +26,7 @@ export default function App() {
           }))
         )
       );
-  }, [difficulty]);
+  }, []);
 
   // useEffect(() => {
   //   if (!cards.length) return; // guard if cards not loaded yet
