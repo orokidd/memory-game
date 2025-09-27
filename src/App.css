@@ -12,6 +12,15 @@ body {
   color: #333;
 }
 
+button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
 .start-screen {
   display: flex;
   flex-direction: column;
@@ -105,6 +114,22 @@ body {
   object-fit: cover;
   border-radius: 6px;
   overflow: hidden;
+}
+
+.back-button {
+  margin-top: 20px;
+  padding: 8px 20px;
+  cursor: pointer;
+  border: 2px solid rgb(58, 58, 58);
+  border-radius: 40px;
+  color: rgb(43, 43, 43);
+  transition: all 0.3s;
+  transform: translateZ(0)
+}
+
+.back-button:hover {
+  transform: rotate(4deg);
+  box-shadow: 0 6px 4px rgba(0, 0, 0, 0.2);
 }
 
 .game-over-overlay {
