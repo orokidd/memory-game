@@ -4,7 +4,7 @@ export function GameOver({ bestScore, onRestart, gameWon }) {
       <div className="game-over-box">
         <h2>{gameWon ? "Congratulations! You Won!" : "Game Over!"}</h2>
         <p>Best Score: {bestScore}</p>
-        <button onClick={onRestart}>Restart Game</button>
+        <button className="restart-button" onClick={onRestart}>Restart</button>
       </div>
     </div>
   );

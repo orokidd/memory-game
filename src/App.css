@@ -151,3 +151,19 @@ button {
 .game-over-box h2 {
   margin-bottom: 1rem;
 }
+
+.restart-button {
+  margin: auto;
+  padding: 8px 20px;
+  font: inherit;
+  cursor: pointer;
+  border: 2px solid rgb(58, 58, 58);
+  border-radius: 40px;
+  color: rgb(43, 43, 43);
+  transition: all 0.3s;
+  transform: translateZ(0)
+}
+
+.restart-button:hover {
+  box-shadow: 0 6px 4px rgba(0, 0, 0, 0.2);
+}
