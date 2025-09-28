@@ -13,6 +13,7 @@ export default function App() {
   const [startScreen, setStartScreen] = useState(true);
   const [difficulty, setDifficulty] = useState(null);
   const [gameOver, setGameOver] = useState(false);
+  const [gameWon, setGameWon] = useState(false);
 
   useEffect(() => {
     fetch(`https://api.giphy.com/v1/gifs/search?api_key=fAikYqHyFIWlkJ9cVYRlpMabsqx32PIJ&q=cats&limit=12&offset=0&rating=g&lang=en`, { mode: "cors" })
@@ -28,14 +29,21 @@ export default function App() {
       );
   }, []);
 
-  // useEffect(() => {
-  //   if (!cards.length) return; // guard if cards not loaded yet
-  //   if (score === cards.length) {
-  //     alert("You win!");
-  //     setScore(0);
-  //     setCards(shuffle(cards.map(card => ({ ...card, clicked: false }))));
-  //   }
-  // }, [score, cards]);
+  useEffect(() => {
+    if (!cards.length) return;
+    if (difficulty === "easy" && score === 6) {
+      setGameWon(true);
+      setGameOver(true);
+    }
+    if (difficulty === "medium" && score === 9) {
+      setGameWon(true);
+      setGameOver(true);
+    }
+    if (difficulty === "hard" && score === 12) {
+      setGameWon(true);
+      setGameOver(true);
+    }
+  }, [score]);
 
   useEffect(() => {
     setBestScore(prevBest => Math.max(prevBest, score));
@@ -68,6 +76,7 @@ export default function App() {
     resetScore();
     resetCards();
     setGameOver(false);
+    setGameWon(false);
   }
 
   function newGame(selectedDifficulty) {
@@ -91,7 +100,7 @@ export default function App() {
       </div>
 
       {gameOver && (
-        <GameOver bestScore={bestScore} onRestart={restartGame} />
+        <GameOver bestScore={bestScore} onRestart={restartGame} gameWon={gameWon} />
       )}
     </>
     )
