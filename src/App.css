@@ -144,7 +144,7 @@ button {
 
 .game-over-box {
   background: white;
-  padding: 2rem;
+  padding: 2rem 8rem;
   border-radius: 1rem;
   text-align: center;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
@@ -188,4 +188,8 @@ button {
     height: auto;
     aspect-ratio: 1 / 1;
   }
+
+  .game-over-box {
+  padding: 2rem 6rem;
+}
 }
