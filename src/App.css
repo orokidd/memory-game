@@ -13,12 +13,12 @@ body {
 }
 
 button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: none;
-    background: none;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  cursor: pointer;
 }
 
 .start-screen {
@@ -45,7 +45,7 @@ button {
   background-color: transparent;
   color: rgb(43, 43, 43);
   transition: all 0.3s;
-  transform: translateZ(0)
+  transform: translateZ(0);
 }
 
 .start-button:hover {
@@ -74,8 +74,6 @@ button {
 
 .card-container {
   display: grid;
-  grid-template-columns: repeat(3, 160px);
-  grid-template-rows: repeat(3, 160px);
   gap: 60px;
   padding: 20px;
   justify-content: center;
@@ -127,7 +125,7 @@ button {
   border-radius: 40px;
   color: rgb(43, 43, 43);
   transition: all 0.3s;
-  transform: translateZ(0)
+  transform: translateZ(0);
 }
 
 .back-button:hover {
@@ -138,7 +136,7 @@ button {
 .game-over-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.6);
+  background: rgba(0, 0, 0, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -149,7 +147,7 @@ button {
   padding: 2rem;
   border-radius: 1rem;
   text-align: center;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 .game-over-box h2 {
   margin-bottom: 1rem;
@@ -164,9 +162,30 @@ button {
   border-radius: 40px;
   color: rgb(43, 43, 43);
   transition: all 0.3s;
-  transform: translateZ(0)
+  transform: translateZ(0);
 }
 
 .restart-button:hover {
   box-shadow: 0 6px 4px rgba(0, 0, 0, 0.2);
+}
+
+@media screen and (max-width: 720px) {
+  .app-wrapper {
+    padding: 20px;
+  }
+  
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .card {
+    flex: 1;
+    min-width: 120px;
+    max-width: 140px;
+    height: auto;
+    aspect-ratio: 1 / 1;
+  }
 }
