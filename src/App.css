@@ -183,7 +183,7 @@ button {
 
   .card {
     flex: 1;
-    min-width: 140px;
+    min-width: 160px;
     max-width: 160px;
     height: auto;
     aspect-ratio: 1 / 1;
@@ -194,7 +194,7 @@ button {
 }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 440px) {
   .card {
     min-width: 120px;
   }
