@@ -4,6 +4,7 @@ import { shuffle } from "./util/shuffle";
 import { StartScreen } from "./components/StartScreen";
 import { Options } from "./components/Options";
 import { GameOver } from "./components/GameOver";
+import { fetchData } from "./util/fetchData";
 import './App.css';
 
 export default function App() {
@@ -16,17 +17,8 @@ export default function App() {
   const [gameWon, setGameWon] = useState(false);
 
   useEffect(() => {
-    fetch(`https://api.giphy.com/v1/gifs/search?api_key=fAikYqHyFIWlkJ9cVYRlpMabsqx32PIJ&q=cats&limit=12&offset=0&rating=g&lang=en`, { mode: "cors" })
-      .then(res => res.json())
-      .then(data =>
-        setCards(
-          data.data.map(item => ({
-            id: item.id,
-            img: item.images.fixed_height.url,
-            clicked: false
-          }))
-        )
-      );
+    fetchData("cats", 12)
+      .then((data) => setCards(data))
   }, []);
 
   useEffect(() => {
